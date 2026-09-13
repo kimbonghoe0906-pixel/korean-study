@@ -988,7 +988,7 @@ function stopAudio(){ if(AU){AU.pause();AU=null} try{speechSynthesis.cancel()}ca
 function say(t,id){
   stopAudio();
   if(id){                       // 미리 만들어 둔 원어민 음성
-    const a=new Audio("au/"+id+".mp3");
+    const a=new Audio("au/"+id+".mp3?v=2");
     AU=a;
     a.play().then(()=>{}).catch(()=>{ AU=null; sayTTS(t); });
     a.onerror=()=>{ AU=null; sayTTS(t); };
@@ -1079,7 +1079,7 @@ function drawV(){
     '<button class="wide" id="vSay">🔊 이 단어 읽어주기</button>'+
     '<div class="rowbtn"><button id="vP">← 이전</button><button id="vS">섞기</button><button id="vN">다음 →</button></div>'+
     '<div class="count">'+(vi+1)+' / '+vList.length+'</div>';
-  document.getElementById("vSay").onclick=e=>{e.stopPropagation();say(p[0]+". "+p[1],cur+"_v"+String(vList.indexOf(p)+1).padStart(2,"0"))};
+  document.getElementById("vSay").onclick=e=>{e.stopPropagation();say(p[0]+". "+p[1],cur+"_v"+String(p[2]).padStart(2,"0"))};
   document.getElementById("fc").onclick=()=>{vBack=!vBack;drawV()};
   document.getElementById("vN").onclick=()=>{vi=(vi+1)%vList.length;vBack=false;drawV()};
   document.getElementById("vP").onclick=()=>{vi=(vi-1+vList.length)%vList.length;vBack=false;drawV()};
@@ -1158,7 +1158,7 @@ function render(){
   const c=C[cur];
   document.getElementById("hTitle").textContent=c.name;
   document.getElementById("hSub").textContent=c.week+" · "+c.sub;
-  vList=(c.voc||[]).slice();vi=0;vBack=false;
+  vList=(c.voc||[]).map((x,i)=>[x[0],x[1],i+1]);vi=0;vBack=false;
   const g=document.getElementById("gBox");
   g.innerHTML=c.g||'<div class="soon"><b>준비 중</b></div>';
   addSay(g, cur+"_g");
