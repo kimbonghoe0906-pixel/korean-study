@@ -84,7 +84,7 @@ footer .wrap{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--
 footer b{color:var(--ink)}
 footer button{margin-left:auto;padding:8px 13px;border:1px solid var(--line);background:#fff;border-radius:9px;font-size:13px;cursor:pointer}
 </style>
-<script src="data/slides.js?v=5"></script>
+<script src="data/slides.js?v=7"></script>
 </head>
 <body>
 
@@ -125,7 +125,7 @@ let C = {};
 
 
 /* ══ 상태 ══ */
-const WEEKS=[1,2,3,4,5];                       // 지금 만들어 둔 주차
+const WEEKS=[1,2,3,4,5,6,7];                       // 지금 만들어 둔 주차
 let wk = +(localStorage.getItem("cufs_wk")||1);
 if(!WEEKS.includes(wk)) wk = 1;
 let KEYS=[];
@@ -187,7 +187,7 @@ function loadWeek(n){
   return new Promise((ok,no)=>{
     if(window.WEEK && window.WEEK[n]) return ok();
     const s=document.createElement("script");
-    s.src="data/w"+n+".js?v=5";
+    s.src="data/w"+n+".js?v=7";
     s.onload=()=>ok(); s.onerror=()=>no(new Error("w"+n));
     document.head.appendChild(s);
   });
