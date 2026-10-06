@@ -84,7 +84,7 @@ footer .wrap{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--
 footer b{color:var(--ink)}
 footer button{margin-left:auto;padding:8px 13px;border:1px solid var(--line);background:#fff;border-radius:9px;font-size:13px;cursor:pointer}
 </style>
-<script src="data/slides.js"></script>
+<script src="data/slides.js?v=5"></script>
 </head>
 <body>
 
@@ -125,7 +125,7 @@ let C = {};
 
 
 /* ══ 상태 ══ */
-const WEEKS=[1,2,3,4];                       // 지금 만들어 둔 주차
+const WEEKS=[1,2,3,4,5];                       // 지금 만들어 둔 주차
 let wk = +(localStorage.getItem("cufs_wk")||1);
 if(!WEEKS.includes(wk)) wk = 1;
 let KEYS=[];
@@ -141,7 +141,7 @@ function stopAudio(){ if(AU){AU.pause();AU=null} try{speechSynthesis.cancel()}ca
 function say(t,id){
   stopAudio();
   if(id){                       // 미리 만들어 둔 원어민 음성
-    const a=new Audio("au/w"+wk+"/"+id+".mp3?v=2");
+    const a=new Audio("au/w"+wk+"/"+id+".mp3?v=3");
     AU=a;
     a.play().then(()=>{}).catch(()=>{ AU=null; sayTTS(t); });
     a.onerror=()=>{ AU=null; sayTTS(t); };
@@ -187,7 +187,7 @@ function loadWeek(n){
   return new Promise((ok,no)=>{
     if(window.WEEK && window.WEEK[n]) return ok();
     const s=document.createElement("script");
-    s.src="data/w"+n+".js";
+    s.src="data/w"+n+".js?v=5";
     s.onload=()=>ok(); s.onerror=()=>no(new Error("w"+n));
     document.head.appendChild(s);
   });
